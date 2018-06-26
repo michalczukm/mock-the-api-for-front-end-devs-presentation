@@ -1,0 +1,625 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: notes - swagger example
+  description: 'This API manages data for training notes-manager application.'
+host: private-302ed2-notesswaggerexample.apiary-mock.com
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /notes:
+    get:
+      description: Get all notes.
+      summary: Get all notes
+      operationId: NotesGet
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/GetAllNotesResponse'
+          examples:
+            application/json:
+              - id: 1
+                title: First note
+                content: First note sample content
+                createdOn: '2018-01-01T15:30:00.511Z'
+                type: 1
+              - id: 2
+                title: Second note
+                content: Second note sample content
+                createdOn: '2018-01-02T16:30:00.511Z'
+                type: 2
+              - id: 3
+                title: Third note
+                content: Third note sample content
+                createdOn: '2018-01-03T17:30:00.511Z'
+                type: 0
+              - id: 4
+                title: Fourth note
+                content: Fourth note sample content
+                createdOn: '2018-01-04T18:30:00.511Z'
+                type: 1
+              - id: 5
+                title: Fifth note
+                content: Fifth note sample content
+                createdOn: '2018-01-05T18:30:00.511Z'
+                type: 0
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /notes
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: RAW
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers:
+              Content-Type: application/json
+            body: >-
+              [    {      "id": 1,      "title": "First note",      "content":
+              "First note sample content",      "createdOn":
+              "2018-01-01T15:30:00.511Z",      "type": 1    },    {      "id":
+              2,      "title": "Second note",      "content": "Second note
+              sample content",      "createdOn":
+              "2018-01-02T16:30:00.511Z",      "type": 2    },    {      "id":
+              3,      "title": "Third note",      "content": "Third note sample
+              content",      "createdOn": "2018-01-03T17:30:00.511Z",     
+              "type": 0    },    {      "id": 4,      "title": "Fourth
+              note",      "content": "Fourth note sample content",     
+              "createdOn": "2018-01-04T18:30:00.511Z",      "type": 1    },   
+              {      "id": 5,      "title": "Fifth note",      "content": "Fifth
+              note sample content",      "createdOn":
+              "2018-01-05T18:30:00.511Z",      "type": 0    }]
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Get all notes1
+          x-testDescription: Get all notes.
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      description: Add note to the collection.
+      summary: Create a New Note
+      operationId: NotesPost
+      produces:
+        - application/json
+      parameters:
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/CreateANewNoteRequest'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/CreateANewNoteResponse'
+          examples:
+            application/json:
+              id: 6
+              title: Sixth note
+              content: Sixth note sample content
+              createdOn: '2018-06-20T18:30:00.511Z'
+              type: 2
+        '401':
+          description: Unexpected error in API call. See HTTP response body for details.
+          schema:
+            $ref: '#/definitions/CreateANewNote401Response'
+          examples:
+            application/json:
+              error: error.unauthorized
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  '/notes/{id}':
+    get:
+      description: Get single note from collection by `id`
+      summary: Get a single Note
+      operationId: NotesByIdGet
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: number
+          format: double
+          exclusiveMaximum: false
+          exclusiveMinimum: false
+          description: Numeric `id` of the note
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/GetASingleNoteResponse'
+          examples:
+            application/json:
+              id: 2
+              title: Second note
+              content: Second note sample content
+              createdOn: '2018-01-02T16:30:00.511Z'
+              type: 2
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /notes/2
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: RAW
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers:
+              Content-Type: application/json
+            body: >-
+              {    "id": 2,    "title": "Second note",    "content": "Second
+              note sample content",    "createdOn":
+              "2018-01-02T16:30:00.511Z",    "type": 2}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Get a single Note1
+          x-testDescription: Get single note from collection by `id`
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    put:
+      description: Update existing note in the collection.
+      summary: Update a Note
+      operationId: NotesByIdPut
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: number
+          format: double
+          exclusiveMaximum: false
+          exclusiveMinimum: false
+          description: Numeric `id` of the note
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+        - name: body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/UpdateANoteRequest'
+      responses:
+        '200':
+          description: ''
+        '401':
+          description: Unexpected error in API call. See HTTP response body for details.
+          schema:
+            $ref: '#/definitions/UpdateANote401Response'
+          examples:
+            application/json:
+              error: error.unauthorized
+        '404':
+          description: ''
+          schema: {}
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    delete:
+      description: Delete existing note in the collection.
+      summary: Delete a Note
+      operationId: NotesByIdDelete
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: number
+          format: double
+          exclusiveMaximum: false
+          exclusiveMinimum: false
+          description: Numeric `id` of the note
+      responses:
+        '200':
+          description: ''
+        '401':
+          description: Unexpected error in API call. See HTTP response body for details.
+          schema:
+            $ref: '#/definitions/DeleteANote401Response'
+          examples:
+            application/json:
+              error: error.unauthorized
+        '404':
+          description: ''
+          schema: {}
+      x-unitTests:
+        - request:
+            method: DELETE
+            uri: /notes/1
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Delete a Note1
+          x-testDescription: Delete existing note in the collection.
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /regions:
+    get:
+      description: Get all regions.
+      summary: Get all regions
+      operationId: RegionsGet
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/GetAllRegionsResponse'
+          examples:
+            application/json:
+              - id: 1
+                name: West Europe
+              - id: 2
+                name: East Europe
+              - id: 3
+                name: West Asia
+              - id: 4
+                name: East Asia
+              - id: 5
+                name: North Africa
+              - id: 6
+                name: South Africa
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /regions
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: RAW
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers:
+              Content-Type: application/json
+            body: >-
+              [    {      "id": 1,      "name": "West Europe"    },    {     
+              "id": 2,      "name": "East Europe"    },    {      "id": 3,     
+              "name": "West Asia"    },    {      "id": 4,      "name": "East
+              Asia"    },    {      "id": 5,      "name": "North Africa"   
+              },    {      "id": 6,      "name": "South Africa"    }]
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Get all regions1
+          x-testDescription: Get all regions.
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  '/regions/{id}':
+    get:
+      description: Get single region by its id
+      summary: Get region by id
+      operationId: RegionsByIdGet
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: number
+          format: double
+          exclusiveMaximum: false
+          exclusiveMinimum: false
+          description: Numeric `id` of the note
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/GetRegionByIdResponse'
+          examples:
+            application/json:
+              id: 4
+              name: East Asia
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /regions/1
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: RAW
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers:
+              Content-Type: application/json
+            body: '{    "id": 4,    "name": "East Asia"}'
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: Get region by id1
+          x-testDescription: Get single region by its id
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+definitions:
+  GetAllNotesResponse:
+    title: Get all notes response
+    example:
+      id: 1
+      title: First note
+      content: First note sample content
+      createdOn: '2018-01-01T15:30:00.511Z'
+      type: 1
+    type: object
+    properties:
+      id:
+        description: ''
+        example: 1
+        type: integer
+        format: int32
+      title:
+        description: ''
+        example: First note
+        type: string
+      content:
+        description: ''
+        example: First note sample content
+        type: string
+      createdOn:
+        description: ''
+        example: '1/1/2018 3:30:00 PM'
+        type: string
+      type:
+        description: ''
+        example: 1
+        type: integer
+        format: int32
+    required:
+      - id
+      - title
+      - content
+      - createdOn
+      - type
+  GetASingleNoteResponse:
+    title: Get a single Note response
+    example:
+      id: 2
+      title: Second note
+      content: Second note sample content
+      createdOn: '2018-01-02T16:30:00.511Z'
+      type: 2
+    type: object
+    properties:
+      id:
+        description: ''
+        example: 2
+        type: integer
+        format: int32
+      title:
+        description: ''
+        example: Second note
+        type: string
+      content:
+        description: ''
+        example: Second note sample content
+        type: string
+      createdOn:
+        description: ''
+        example: '1/2/2018 4:30:00 PM'
+        type: string
+      type:
+        description: ''
+        example: 2
+        type: integer
+        format: int32
+    required:
+      - id
+      - title
+      - content
+      - createdOn
+      - type
+  CreateANewNoteRequest:
+    title: Create a New Note request
+    type: object
+    properties:
+      title:
+        description: ''
+        example: Sixth note
+        type: string
+      content:
+        description: ''
+        example: Sixth note sample content
+        type: string
+      createdOn:
+        description: ''
+        example: '6/20/2018 6:30:00 PM'
+        type: string
+      type:
+        description: ''
+        example: 2
+        type: integer
+        format: int32
+    required:
+      - title
+      - content
+      - createdOn
+      - type
+  CreateANewNoteResponse:
+    title: Create a New Note response
+    example:
+      id: 6
+      title: Sixth note
+      content: Sixth note sample content
+      createdOn: '2018-06-20T18:30:00.511Z'
+      type: 2
+    type: object
+    properties:
+      id:
+        description: ''
+        example: 6
+        type: integer
+        format: int32
+      title:
+        description: ''
+        example: Sixth note
+        type: string
+      content:
+        description: ''
+        example: Sixth note sample content
+        type: string
+      createdOn:
+        description: ''
+        example: '6/20/2018 6:30:00 PM'
+        type: string
+      type:
+        description: ''
+        example: 2
+        type: integer
+        format: int32
+    required:
+      - id
+      - title
+      - content
+      - createdOn
+      - type
+  CreateANewNote401Response:
+    title: Create a New Note 401 response
+    example:
+      error: error.unauthorized
+    type: object
+    properties:
+      error:
+        description: ''
+        example: error.unauthorized
+        type: string
+    required:
+      - error
+  UpdateANoteRequest:
+    title: Update a Note request
+    type: object
+    properties:
+      title:
+        description: ''
+        example: Sixth note
+        type: string
+      content:
+        description: ''
+        example: Sixth note sample content
+        type: string
+      createdOn:
+        description: ''
+        example: '6/20/2018 6:30:00 PM'
+        type: string
+      type:
+        description: ''
+        example: 2
+        type: integer
+        format: int32
+    required:
+      - title
+      - content
+      - createdOn
+      - type
+  UpdateANote401Response:
+    title: Update a Note 401 response
+    example:
+      error: error.unauthorized
+    type: object
+    properties:
+      error:
+        description: ''
+        example: error.unauthorized
+        type: string
+    required:
+      - error
+  DeleteANote401Response:
+    title: Delete a Note 401 response
+    example:
+      error: error.unauthorized
+    type: object
+    properties:
+      error:
+        description: ''
+        example: error.unauthorized
+        type: string
+    required:
+      - error
+  GetAllRegionsResponse:
+    title: Get all regions response
+    example:
+      id: 1
+      name: West Europe
+    type: object
+    properties:
+      id:
+        description: ''
+        example: 1
+        type: integer
+        format: int32
+      name:
+        description: ''
+        example: West Europe
+        type: string
+    required:
+      - id
+      - name
+  GetRegionByIdResponse:
+    title: Get region by id response
+    example:
+      id: 4
+      name: East Asia
+    type: object
+    properties:
+      id:
+        description: ''
+        example: 4
+        type: integer
+        format: int32
+      name:
+        description: ''
+        example: East Asia
+        type: string
+    required:
+      - id
+      - name

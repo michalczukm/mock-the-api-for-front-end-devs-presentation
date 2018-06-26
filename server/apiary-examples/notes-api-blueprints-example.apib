@@ -1,0 +1,221 @@
+FORMAT: 1A
+HOST: http://private-72cd4a-michalczukm.apiary-mock.com
+
+# notes - API blueprint example
+
+This API manages data for training notes-manager application.
+
+## Notes [/notes]
+Basic entity of the system is note - which user can add and fill with his/her personal info.
+
+**Note attributes:**
+
+- id `(Number)` : unique identifier. 
+- title `(String)` : title of the note.
+- content `(String)` : note content.
+- createdOn `(Date)` : note creation date
+- type `(enum)`: type of note
+
+### Get all notes [GET]
+
+Get all notes.
+
++ Response 200 (application/json)
+
+        [
+            {
+              "id": 1,
+              "title": "First note",
+              "content": "First note sample content",
+              "createdOn": "2018-01-01T15:30:00.511Z",
+              "type": 1
+            },
+            {
+              "id": 2,
+              "title": "Second note",
+              "content": "Second note sample content",
+              "createdOn": "2018-01-02T16:30:00.511Z",
+              "type": 2
+            },
+            {
+              "id": 3,
+              "title": "Third note",
+              "content": "Third note sample content",
+              "createdOn": "2018-01-03T17:30:00.511Z",
+              "type": 0
+            },
+            {
+              "id": 4,
+              "title": "Fourth note",
+              "content": "Fourth note sample content",
+              "createdOn": "2018-01-04T18:30:00.511Z",
+              "type": 1
+            },
+            {
+              "id": 5,
+              "title": "Fifth note",
+              "content": "Fifth note sample content",
+              "createdOn": "2018-01-05T18:30:00.511Z",
+              "type": 0
+            }
+        ]
+        
+### Get a single Note [GET /notes/{id}]
+
+Get single note from collection by `id`
+
++ Parameters
+    + id (required, Number, `2`) ... Numeric `id` of the note
+    
++ Response 200 (application/json)
+    
+        {
+            "id": 2,
+            "title": "Second note",
+            "content": "Second note sample content",
+            "createdOn": "2018-01-02T16:30:00.511Z",
+            "type": 2
+        }
+
+### Create a New Note [POST]
+
+Add note to the collection.
+
++ Request (application/json)
+
+        {
+            "title": "Sixth note",
+            "content": "Sixth note sample content",
+            "createdOn": "2018-06-20T18:30:00.511Z",
+            "type": 2
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /notes/6
+
+    + Body
+        
+            {
+                "id": 6,
+                "title": "Sixth note",
+                "content": "Sixth note sample content",
+                "createdOn": "2018-06-20T18:30:00.511Z",
+                "type": 2
+            }
+
++ Response 401 (application/json)
+
+        {
+            "error": "error.unauthorized"
+        }
+        
+
+### Update a Note [PUT /notes/{id}]
+
+Update existing note in the collection.
+
++ Parameters
+
+    + id (required, Number, `1`) ... Numeric `id` of the note
+
++ Request (application/json)
+
+        {
+            "title": "Sixth note",
+            "content": "Sixth note sample content",
+            "createdOn": "2018-06-20T18:30:00.511Z",
+            "type": 2
+        }
+
++ Response 200
+
++ Response 404
+
++ Response 401 (application/json)
+
+        {
+            "error": "error.unauthorized"
+        }
+        
+### Delete a Note [DELETE /notes/{id}]
+
+Delete existing note in the collection.
+
++ Parameters
+
+    + id (required, Number, `1`) ... Numeric `id` of the note
+
+
++ Response 200
+
++ Response 404
+
++ Response 401 (application/json)
+
+        {
+            "error": "error.unauthorized"
+        }
+        
+## Regions [/regions]
+Every client in the system can be connected with some region.
+The regions are readonly.
+
+## Regions
+
+**Requin attributes:**
+
+- id `(Number)` : unique identifier.
+- name `(String)` : region name
+
+### Get all regions [GET]
+
+Get all regions.
+
++ Response 200 (application/json)
+
+        [
+            {
+              "id": 1,
+              "name": "West Europe"
+            },
+            {
+              "id": 2,
+              "name": "East Europe"
+            },
+            {
+              "id": 3,
+              "name": "West Asia"
+            },
+            {
+              "id": 4,
+              "name": "East Asia"
+            },
+            {
+              "id": 5,
+              "name": "North Africa"
+            },
+            {
+              "id": 6,
+              "name": "South Africa"
+            }
+        ]
+        
+### Get region by id [GET /regions/{id}]
+
+Get single region by its id
+
++ Parameters
+
+    + id (required, Number, `1`) ... Numeric `id` of the note
+
+
++ Response 200 (application/json)
+
+        {
+            "id": 4,
+            "name": "East Asia"
+        }
+        
