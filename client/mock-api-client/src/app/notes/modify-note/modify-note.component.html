@@ -1,0 +1,27 @@
+<div class="mat-typography">
+  <mat-toolbar>
+    <button type="button" [routerLink]="'..'" mat-raised-button color="primary">< Back</button>
+  </mat-toolbar>
+  <h1>{{labels[type].title()}}</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mat-typography">
+    <div class="full-width">
+      <mat-form-field>
+        <input formControlName="title" matInput placeholder="Title">
+      </mat-form-field>
+
+      <mat-form-field>
+        <textarea formControlName="content" matInput placeholder="Content"></textarea>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select formControlName="type" placeholder="Type">
+          <mat-option [value]="noteTypeRef.Meeting">{{noteTypeRef.Meeting | noteType}}</mat-option>
+          <mat-option [value]="noteTypeRef.Personal">{{noteTypeRef.Personal | noteType}}</mat-option>
+          <mat-option [value]="noteTypeRef.Urgent">{{noteTypeRef.Urgent | noteType}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button type="reset" mat-button color="accent">Reset</button>
+    <button type="submit" [disabled]="!form.valid" mat-button color="primary">Send</button>
+  </form>
+</div>

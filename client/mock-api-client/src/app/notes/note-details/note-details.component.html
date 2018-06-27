@@ -1,0 +1,19 @@
+<div class="mat-typography">
+  <mat-toolbar>
+    <button [routerLink]="'..'" mat-raised-button color="primary"> < Back</button>
+    <button [routerLink]="['edit']" mat-button color="accent">Edit</button>
+    <button (click)="delete()" mat-button color="warn">Delete</button>
+  </mat-toolbar>
+  <h1>{{note.title}}</h1>
+
+  <mat-divider></mat-divider>
+
+  <h2>Created on:</h2>
+  {{note.createdOn | date}}
+
+  <h2>Content:</h2>
+  <p>{{note.content}}</p>
+
+  <h2>Type:</h2>
+  <p>{{note.type | noteType}}</p>
+</div>
